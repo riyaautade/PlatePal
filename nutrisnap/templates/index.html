@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NutriSnap - Food Recognition & Nutrition Analysis</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body class="bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex items-center justify-center">
+          <div class="flex items-center space-x-3">
+            <i class="fas fa-camera text-green-600 text-3xl"></i>
+            <h1
+              class="text-3xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent"
+            >
+              NutriSnap
+            </h1>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+      <!-- Welcome Section -->
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">
+          Snap. Analyze. Know.
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Upload a photo of your food and instantly get detailed nutritional
+          information powered by AI
+        </p>
+      </div>
+
+      <!-- Upload Section -->
+      <div class="max-w-2xl mx-auto mb-12">
+        <div class="bg-white rounded-2xl shadow-xl p-8">
+          <div
+            id="upload-area"
+            class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-green-500 transition-colors duration-300"
+          >
+            <div id="upload-content">
+              <i
+                class="fas fa-cloud-upload-alt text-6xl text-gray-400 mb-4"
+              ></i>
+              <h3 class="text-xl font-semibold text-gray-700 mb-2">
+                Upload Food Image
+              </h3>
+              <p class="text-gray-500 mb-4">Drag and drop or click to select</p>
+              <input
+                type="file"
+                id="file-input"
+                accept="image/*"
+                class="hidden"
+              />
+              <button
+                type="button"
+                id="upload-btn"
+                class="bg-gradient-to-r from-green-500 to-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:from-green-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105"
+              >
+                Choose File
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Animation -->
+      <div id="loading" class="hidden text-center mb-8">
+        <div
+          class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"
+        ></div>
+        <p class="text-gray-600 mt-4 text-lg">Analyzing your food image...</p>
+      </div>
+
+      <!-- Results Section -->
+      <div id="results" class="hidden max-w-6xl mx-auto">
+        <!-- Image and Predictions Row -->
+        <div class="grid lg:grid-cols-2 gap-8 mb-8">
+          <!-- Uploaded Image -->
+          <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="bg-gradient-to-r from-green-500 to-blue-500 p-4">
+              <h3 class="text-xl font-bold text-white flex items-center">
+                <i class="fas fa-image mr-2"></i>
+                Your Food Image
+              </h3>
+            </div>
+            <div class="p-6">
+              <img
+                id="uploaded-image"
+                class="w-full h-64 object-cover rounded-lg shadow-md"
+                alt="Uploaded food"
+              />
+            </div>
+          </div>
+
+          <!-- Food Recognition Results -->
+          <div class="bg-white rounded-2xl shadow-xl">
+            <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-4">
+              <h3 class="text-xl font-bold text-white flex items-center">
+                <i class="fas fa-brain mr-2"></i>
+                AI Recognition Results
+              </h3>
+            </div>
+            <div class="p-6">
+              <div id="predictions-list" class="space-y-3">
+                <!-- Predictions will be inserted here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nutrition Analysis - Full Width Rectangular Card -->
+        <div
+          id="nutrition-section"
+          class="bg-white rounded-2xl shadow-xl hidden"
+        >
+          <div class="bg-gradient-to-r from-green-500 to-emerald-500 p-4">
+            <h3 class="text-xl font-bold text-white flex items-center">
+              <i class="fas fa-utensils mr-2"></i>
+              Nutrition Analysis
+            </h3>
+          </div>
+          <div id="nutrition-content" class="p-6">
+            <!-- Nutrition data will be inserted here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <div id="error-message" class="hidden max-w-2xl mx-auto">
+        <div
+          class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg"
+        >
+          <div class="flex items-center">
+            <i class="fas fa-exclamation-triangle mr-2"></i>
+            <span id="error-text"></span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+      <div class="container mx-auto px-6 text-center">
+        <p class="text-gray-400">Powered by Clarifai AI Food Recognition</p>
+      </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  </body>
+</html>
